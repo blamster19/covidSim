@@ -7,3 +7,9 @@ city::city()
 , 	recoveryTime( 0.5 )
 {
 }
+
+void city::createPerson(double x, double y, double vx, double vy, double radius, char status){
+	person *newPerson = new person;
+	newPerson -> setParams(x, y, vx, vy, radius, status);
+	this -> people.push_back(*newPerson);
+}

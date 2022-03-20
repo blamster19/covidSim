@@ -10,3 +10,12 @@ person::person()
 	timeR( 0 )
 {
 }
+
+void person::setParams(double x, double y, double vx, double vy, double radius, char status){
+	this -> x = x;
+	this -> y = y;
+	this -> vx = vx;
+	this -> vy = vy;
+	this -> radius = radius;
+	this -> status = status;
+}

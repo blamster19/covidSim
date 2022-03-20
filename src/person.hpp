@@ -6,6 +6,7 @@
 class person{
 public:
 	person();
+	void setParams(double x, double y, double vx, double vy, double radius, char status);
 private:
 	double x;
 	double y;
