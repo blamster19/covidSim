@@ -9,6 +9,8 @@ public:
 	city();
 	void createPerson(double x, double y, double vx, double vy, double radius, char status);
 	void movePeople();
+	std::vector <person> getPeople();
+	double getTimeStep();
 private:
 	std::vector<person> people;
 	int nIter;

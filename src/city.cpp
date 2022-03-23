@@ -19,3 +19,11 @@ void city::movePeople(){
 		i.translate(dt, boxSize, recoveryTime);
 	}
 }
+
+std::vector<person> city::getPeople(){
+	return this -> people;
+}
+
+double city::getTimeStep(){
+	return this -> dt;
+}

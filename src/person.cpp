@@ -38,3 +38,28 @@ void person::translate(double dt, double bound, double recTime){
 	if(timeR > recTime && status == 1)
 		status = 2;
 }
+
+double person::getX(){
+	return this -> x;
+}
+
+double person::getY(){
+	return this -> y;
+}
+
+double person::getRadius(){
+	return this -> radius;
+}
+
+const char* person::getColor(){
+	switch (this -> status){
+		case 0:
+			return "red";
+		case 1:
+			return "green";
+		case 2:
+			return "blue";
+		default:
+			return "black";
+	}
+}
