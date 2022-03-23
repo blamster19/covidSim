@@ -8,6 +8,7 @@ class city{
 public:
 	city();
 	void createPerson(double x, double y, double vx, double vy, double radius, char status);
+	void movePeople();
 private:
 	std::vector<person> people;
 	int nIter;

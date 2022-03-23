@@ -19,3 +19,22 @@ void person::setParams(double x, double y, double vx, double vy, double radius, 
 	this -> radius = radius;
 	this -> status = status;
 }
+
+void person::translate(double dt, double bound, double recTime){
+	//move
+	x += dt*x;
+	y += dt*y;
+	//deflect upon collision
+	if(x > bound && vx > 0)
+		vx = -vx;
+	if(x < 0 && vx < 0)
+		vx = -vx;
+	if(y > bound && vy > 0)
+		vx = -vx;
+	if(y < 0 && vy < 0)
+		vx = -vx;
+	//time flow
+	timeR += dt;
+	if(timeR > recTime && status == 1)
+		status = 2;
+}

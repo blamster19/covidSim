@@ -13,3 +13,9 @@ void city::createPerson(double x, double y, double vx, double vy, double radius,
 	newPerson -> setParams(x, y, vx, vy, radius, status);
 	this -> people.push_back(*newPerson);
 }
+
+void city::movePeople(){
+	for(auto i : people){
+		i.translate(dt, boxSize, recoveryTime);
+	}
+}
