@@ -8,6 +8,11 @@ city::city()
 {
 }
 
+void city::setParams(double dt, double boxSize, double recoveryTime){
+	this -> dt = dt;
+	this -> boxSize = boxSize;
+	this -> recoveryTime = recoveryTime;
+}
 void city::createPerson(double x, double y, double vx, double vy, double radius, char status){
 	person *newPerson = new person;
 	newPerson -> setParams(x, y, vx, vy, radius, status);
@@ -26,4 +31,8 @@ std::vector<person> city::getPeople(){
 
 double city::getTimeStep(){
 	return this -> dt;
+}
+
+double city::getBoxSize(){
+	return this -> boxSize;
 }
