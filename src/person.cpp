@@ -22,8 +22,8 @@ void person::setParams(double x, double y, double vx, double vy, double radius, 
 
 void person::translate(double dt, double bound, double recTime){
 	//move
-	x += dt*x;
-	y += dt*y;
+	x += dt*vx;
+	y += dt*vy;
 	//deflect upon collision
 	if(x > bound && vx > 0)
 		vx = -vx;
