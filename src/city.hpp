@@ -13,8 +13,8 @@ public:
 	std::vector <person> getPeople();
 	double getTimeStep();
 	double getBoxSize();
-private:
 	std::vector<person> people;
+private:
 	int nIter;
 	double dt;
 	double boxSize;

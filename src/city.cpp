@@ -20,7 +20,7 @@ void city::createPerson(double x, double y, double vx, double vy, double radius,
 }
 
 void city::movePeople(){
-	for(auto i : people){
+	for(auto &i : people){
 		i.translate(dt, boxSize, recoveryTime);
 	}
 }
