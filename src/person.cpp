@@ -31,9 +31,9 @@ void person::translate(double dt, double bound, double recTime){
 	if(x < 0 && vx < 0)
 		vx = -vx;
 	if(y > bound && vy > 0)
-		vx = -vx;
+		vy = -vy;
 	if(y < 0 && vy < 0)
-		vx = -vx;
+		vy = -vy;
 	//time flow
 	timeR += dt;
 	if(timeR > recTime && status == 1)
