@@ -6,7 +6,7 @@
 class person{
 public:
 	person();
-	void setParams(double x, double y, double vx, double vy, double radius, char status);
+	person(double xarg, double yarg, double vxarg, double vyarg, double radiusarg, char statusarg);
 	void translate(double dt, double bound, double recTime);
 	double getX();
 	double getY();

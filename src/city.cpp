@@ -8,14 +8,15 @@ city::city()
 {
 }
 
-void city::setParams(double dt, double boxSize, double recoveryTime){
-	this -> dt = dt;
-	this -> boxSize = boxSize;
-	this -> recoveryTime = recoveryTime;
+city::city(double dtarg, double boxSizearg, double recoveryTimearg)
+:	dt( dtarg )
+,	boxSize( boxSizearg )
+,	recoveryTime( recoveryTimearg )
+{
 }
+
 void city::createPerson(double x, double y, double vx, double vy, double radius, char status){
-	person *newPerson = new person;
-	newPerson -> setParams(x, y, vx, vy, radius, status);
+	person *newPerson = new person(x, y, vx, vy, radius, status);
 	this -> people.push_back(*newPerson);
 }
 

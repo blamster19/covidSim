@@ -7,7 +7,7 @@
 class city{
 public:
 	city();
-	void setParams(double dt, double boxSize, double recoveryTime);
+	city(double dtarg, double boxSizearg, double recoveryTimearg);
 	void createPerson(double x, double y, double vx, double vy, double radius, char status);
 	void movePeople();
 	std::vector <person> getPeople();
