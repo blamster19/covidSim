@@ -2,6 +2,8 @@
 #define CITY_HPP
 
 #include <vector>
+#include <cstdio>
+#include <cstdint>
 #include "person.hpp"
 
 class city{
@@ -12,7 +14,6 @@ public:
 	city(bool verbosearg, bool everbosearg);
 	void createPerson(double x, double y, double vx, double vy, double radius, char status);
 	void movePeople();
-	std::vector <person> getPeople();
 	double getTimeStep();
 	double getBoxSize();
 	std::vector<person> people;

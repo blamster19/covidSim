@@ -1,5 +1,6 @@
 #include "city.hpp"
 
+//constructors
 city::city()
 : 	nIter( 100 )
 , 	dt( 0.02 )
@@ -39,19 +40,20 @@ city::city(bool verbosearg, bool everbosearg)
 {
 }
 
+//verbosity function that prints what is being done
 void city::verbIt(char code, void* arg){
 	if(this -> verbose == 1){
-		intptr_t addr = reinterpret_cast<intptr_t>(arg);
+		//this function writes addresses of what does what
 		switch(code){
 		case 1:
-			printf("in city %x: created person %x\n", this, addr);
+			printf("in city %x: created person %x\n", this, arg);
 			break;
 		case 2:
 			printf("in city %x: start translating people\n", this);
 			break;
 		case 3:
-			if(this -> extraVerbose == 1)
-				printf("in city %x: 	translated person %x\n", this, addr);
+			if(this -> extraVerbose == 1)//extra layer of scrutiny
+				printf("in city %x: 	translated person %x\n", this, arg);
 			break;
 		case 4:
 			printf("in city %x: translated all people\n", this);
@@ -64,24 +66,19 @@ void city::verbIt(char code, void* arg){
 }
 
 void city::createPerson(double x, double y, double vx, double vy, double radius, char status){
-	person *newPerson = new person(x, y, vx, vy, radius, status);
-	this -> people.push_back(*newPerson);
+	person *newPerson = new person(x, y, vx, vy, radius, status);//allocate mem and init object
+	this -> people.push_back(*newPerson);//add to list of objects
 	verbIt(1, newPerson);
 }
 
 void city::movePeople(){
 	verbIt(2);
+	//iterate list of objects
 	for(auto &i : people){
 		i.translate(dt, boxSize, recoveryTime);
-		//verbosity
 		verbIt(3, &i);
 	}
-	//verbosity
 	verbIt(4);
-}
-
-std::vector<person> city::getPeople(){
-	return this -> people;
 }
 
 double city::getTimeStep(){

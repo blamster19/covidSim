@@ -1,5 +1,6 @@
 #include "person.hpp"
 
+//constructors
 person::person()
 : 	x( 0 )
 ,	y( 0 )
@@ -36,6 +37,7 @@ void person::translate(double dt, double bound, double recTime){
 		vy = -vy;
 	//time flow
 	timeR += dt;
+	//if enough time elapsed, heal
 	if(timeR > recTime && status == 1)
 		status = 2;
 }
@@ -53,6 +55,7 @@ double person::getRadius(){
 }
 
 const char* person::getColor(){
+	//return verbal color for Python library
 	switch (this -> status){
 		case 0:
 			return "red";
