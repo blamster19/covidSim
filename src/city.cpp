@@ -6,14 +6,16 @@ city::city()
 , 	boxSize( 0.25 )
 , 	recoveryTime( 0.5 )
 , 	verbose( 0 )
+, 	extraVerbose( 0 )
 {
 }
 
-city::city(double dtarg, double boxSizearg, double recoveryTimearg, bool verbosearg)
+city::city(double dtarg, double boxSizearg, double recoveryTimearg, bool verbosearg, bool everbosearg)
 :	dt( dtarg )
 ,	boxSize( boxSizearg )
 ,	recoveryTime( recoveryTimearg )
 , 	verbose( verbosearg )
+, 	extraVerbose( everbosearg )
 {
 }
 
@@ -23,6 +25,17 @@ city::city(bool verbosearg)
 , 	boxSize( 0.25 )
 , 	recoveryTime( 0.5 )
 , 	verbose( verbosearg )
+, 	extraVerbose( 0 )
+{
+}
+
+city::city(bool verbosearg, bool everbosearg)
+: 	nIter( 100 )
+, 	dt( 0.02 )
+, 	boxSize( 0.25 )
+, 	recoveryTime( 0.5 )
+, 	verbose( verbosearg )
+, 	extraVerbose( everbosearg )
 {
 }
 
@@ -37,7 +50,8 @@ void city::verbIt(char code, void* arg){
 			printf("in city %x: start translating people\n", this);
 			break;
 		case 3:
-			printf("in city %x: translated person %x\n", this, addr);
+			if(this -> extraVerbose == 1)
+				printf("in city %x: 	translated person %x\n", this, addr);
 			break;
 		case 4:
 			printf("in city %x: translated all people\n", this);

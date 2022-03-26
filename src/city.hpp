@@ -7,8 +7,9 @@
 class city{
 public:
 	city();
-	city(double dtarg, double boxSizearg, double recoveryTimearg, bool verbosearg);
+	city(double dtarg, double boxSizearg, double recoveryTimearg, bool verbosearg, bool everbosearg);
 	city(bool verbosearg);
+	city(bool verbosearg, bool everbosearg);
 	void createPerson(double x, double y, double vx, double vy, double radius, char status);
 	void movePeople();
 	std::vector <person> getPeople();
@@ -22,6 +23,7 @@ private:
 	double boxSize;
 	double recoveryTime;
 	bool verbose;
+	bool extraVerbose;
 };
 
 #endif
