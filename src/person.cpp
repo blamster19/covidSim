@@ -36,10 +36,12 @@ void person::translate(double dt, double bound, double recTime){
 	if(y < 0 && vy < 0)
 		vy = -vy;
 	//time flow
-	timeR += dt;
+	if(status == 0)
+		this -> timeR += dt;
 	//if enough time elapsed, heal
-	if(timeR > recTime && status == 1)
-		status = 2;
+	if(this -> timeR >= recTime)
+		this -> status = 2;
+	//printf("%x: time: %f\n", this, this -> timeR);
 }
 
 double person::getX(){
@@ -66,4 +68,14 @@ const char* person::getColor(){
 		default:
 			return "black";
 	}
+}
+
+char person::getStatus(){
+	return this -> status;
+}
+
+void person::infect(){
+	if(this -> status == 1)
+	//	this -> timeR = 0;
+	this -> status = 0;
 }

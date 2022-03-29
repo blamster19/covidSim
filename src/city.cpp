@@ -71,6 +71,25 @@ void city::createPerson(double x, double y, double vx, double vy, double radius,
 	verbIt(1, newPerson);
 }
 
+void city::infectPeople(){
+	//people.size() choose 2
+	for(int i = 0; i < (this -> people.size()); i++){
+		for(int j = i+1; j < (this -> people.size()); j++){
+			//if one of them is infected
+			if(people[i].getStatus() == 0 || people[j].getStatus() == 0){
+				//compare squares of distances
+				double x = people[i].getX() - people[j].getX();
+				double y = people[i].getY() - people[j].getY();
+				double r = people[i].getRadius() + people[j].getRadius();
+				if(x*x + y*y < r*r){
+					people[i].infect();
+					people[j].infect();
+				}
+			}
+		}
+	}
+}
+
 void city::movePeople(){
 	verbIt(2);
 	//iterate list of objects
@@ -79,6 +98,7 @@ void city::movePeople(){
 		verbIt(3, &i);
 	}
 	verbIt(4);
+	infectPeople();
 }
 
 double city::getTimeStep(){

@@ -19,6 +19,7 @@ public:
 	std::vector<person> people;
 private:
 	void verbIt(char code, void* arg = NULL);
+	void infectPeople();
 	int nIter;
 	double dt;
 	double boxSize;

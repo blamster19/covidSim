@@ -10,6 +10,8 @@ public:
 	double getY();
 	double getRadius();
 	const char* getColor();
+	char getStatus();
+	void infect();
 private:
 	double x;
 	double y;
