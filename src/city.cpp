@@ -1,5 +1,8 @@
 #include "city.hpp"
 
+//message codes
+enum msgCodes{MSG_crtPrsn, MSG_trnsltAll, MSG_trnsltPrsn, MSG_doneTrnslt};
+
 //constructors
 city::city()
 : 	nIter( 100 )
@@ -45,17 +48,17 @@ void city::verbIt(char code, void* arg){
 	if(this -> verbose == 1){
 		//this function writes addresses of what does what
 		switch(code){
-		case 1:
+		case MSG_crtPrsn:
 			printf("in city %x: created person %x\n", this, arg);
 			break;
-		case 2:
+		case MSG_trnsltAll:
 			printf("in city %x: start translating people\n", this);
 			break;
-		case 3:
+		case MSG_trnsltPrsn:
 			if(this -> extraVerbose == 1)//extra layer of scrutiny
 				printf("in city %x: 	translated person %x\n", this, arg);
 			break;
-		case 4:
+		case MSG_doneTrnslt:
 			printf("in city %x: translated all people\n", this);
 			break;
 		default:
@@ -68,7 +71,7 @@ void city::verbIt(char code, void* arg){
 void city::createPerson(double x, double y, double vx, double vy, double radius, char status){
 	person *newPerson = new person(x, y, vx, vy, radius, status);//allocate mem and init object
 	this -> people.push_back(*newPerson);//add to list of objects
-	verbIt(1, newPerson);
+	verbIt(MSG_crtPrsn, newPerson);
 }
 
 void city::infectPeople(){
@@ -91,13 +94,13 @@ void city::infectPeople(){
 }
 
 void city::movePeople(){
-	verbIt(2);
+	verbIt(MSG_trnsltAll);
 	//iterate list of objects
 	for(auto &i : people){
 		i.translate(dt, boxSize, recoveryTime);
-		verbIt(3, &i);
+		verbIt(MSG_trnsltPrsn, &i);
 	}
-	verbIt(4);
+	verbIt(MSG_doneTrnslt);
 	infectPeople();
 }
 
