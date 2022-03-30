@@ -49,20 +49,20 @@ void city::verbIt(char code, void* arg){
 		//this function writes addresses of what does what
 		switch(code){
 		case MSG_crtPrsn:
-			printf("in city %x: created person %x\n", this, arg);
+			printf("in city %p: created person %p\n", this, arg);
 			break;
 		case MSG_trnsltAll:
-			printf("in city %x: start translating people\n", this);
+			printf("in city %p: start translating people\n", this);
 			break;
 		case MSG_trnsltPrsn:
 			if(this -> extraVerbose == 1)//extra layer of scrutiny
-				printf("in city %x: 	translated person %x\n", this, arg);
+				printf("in city %p: 	translated person %p\n", this, arg);
 			break;
 		case MSG_doneTrnslt:
-			printf("in city %x: translated all people\n", this);
+			printf("in city %p: translated all people\n", this);
 			break;
 		default:
-			printf("in city %x: unknown error code\n", this);
+			printf("in city %p: unknown error code\n", this);
 			break;
 		}
 	}
