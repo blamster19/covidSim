@@ -1,5 +1,7 @@
 #include "generator.hpp"
 #include <random>
+#include <fstream>
+#include <string>
 
 void populateCity(city &cityPop){
 	cityPop.createPerson(0.1, 0.2, 0.1, 0.2, 0.02, 1);
@@ -29,4 +31,40 @@ void populateCity(city &cityPop, int seed){
 		}
 		cityPop.createPerson(x, y, vx, vy, r, status);
 	}
+}
+
+int populateCity(city &cityPop, char* path){
+	std::fstream file;
+	file.open(path, std::ios::in);
+	if(!file.good()){
+		return 1;
+	}
+	double x;
+	double y;
+	double vx;
+	double vy;
+	double r;
+	char status;
+	std::string statusStr;
+	while(file){
+		file >> x >> y >> vx >> vy >> r >> statusStr;
+		if(file.fail()){
+			return 1;
+		}
+		if(statusStr == "red"){
+			status = 0;
+		}else
+		if(statusStr == "green"){
+			status = 1;
+		}else
+		if(statusStr == "blue"){
+			status = 2;
+		}else{
+			return 2;
+		}
+		cityPop.createPerson(x, y, vx, vy, r, status);
+		file.clear();
+	}
+	file.close();
+	return 0;
 }
