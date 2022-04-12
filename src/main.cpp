@@ -10,6 +10,15 @@ void verbIt(char code, char* arg, char* name);
 int main(int argc, char **argv){
 	bool verbose = 0;
 	bool extraverbose = 0;
+	char flags = 0b00000000;// C++14
+	/*
+		flag bit layout (left to right):
+		[nIter] [dt] [nPeople] [recoveryTime] [output] [doFrames] [input][input]
+		-input bit layout:
+			01 - default
+			10 - random
+			11 - from file
+	*/
 	//parse args
 	int token = 1;
 	std::string argument;
@@ -41,6 +50,61 @@ int main(int argc, char **argv){
 				}
 				verbIt(MSG_help, argv[0], argv[0]);
 				return 0;
+			}
+			if(argument == "--nIter"){
+				if(flags|0b10000000 == flags){
+					verbIt(MSG_dupliArg, argv[token], argv[0]);
+					return 1;
+				}
+				flags += 0b10000000;
+			}
+			if(argument == "--dt"){
+				if(flags|0b01000000 == flags){
+					verbIt(MSG_dupliArg, argv[token], argv[0]);
+					return 1;
+				}
+				flags += 0b01000000;
+			}
+			if(argument == "--nPeople"){
+				if(flags|0b00100000 == flags){
+					verbIt(MSG_dupliArg, argv[token], argv[0]);
+					return 1;
+				}
+				flags += 0b00100000;
+			}
+			if(argument == "--recoveryTime"){
+				if(flags|0b00010000 == flags){
+					verbIt(MSG_dupliArg, argv[token], argv[0]);
+					return 1;
+				}
+				flags += 0b00010000;
+			}
+			if(argument == "--output" || argument =="-o"){
+				if(flags|0b00001000 == flags){
+					verbIt(MSG_dupliArg, argv[token], argv[0]);
+					return 1;
+				}
+				flags += 0b00001000;
+			}
+			if(argument == "--doFrames"){
+				if(flags|0b00000100 == flags){
+					verbIt(MSG_dupliArg, argv[token], argv[0]);
+					return 1;
+				}
+				flags += 0b00000100;
+			}
+			if(argument == "--input" || argument == "-i"){
+				if((flags|0b00000010 == flags)||(flage|0b00000001 == flags)){
+					verbIt(MSG_dupliArg, argv[token], argv[0]);
+					return 1;
+				}
+				if(flags|0b00000011 == flags){// from file
+					flags += 0b00000011;
+				}else if(flags|0b00000010 == flags){// random
+					flags += 0b00000010;
+				}else{// default
+					flags += 0b00000001;
+				}
 			}
 		}
 		token++;
