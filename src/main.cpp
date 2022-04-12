@@ -6,6 +6,7 @@
 
 enum msgCodes{MSG_invArg, MSG_noFile, MSG_dupliArg, MSG_help, MSG_conflict};
 void verbIt(char code, char* arg, char* name);
+bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char &flags);
 
 int main(int argc, char **argv){
 	bool verbose = 0;
@@ -19,7 +20,40 @@ int main(int argc, char **argv){
 			10 - random
 			11 - from file
 	*/
-	//parse args
+	if(parseParams(argc, argv, verbose, extraverbose, flags)){
+		return 1;
+	}
+	city argleton(verbose, extraverbose);
+	populateCity(argleton);
+	Plotter mapGen;
+	for(int i = 0; i < 50; i++)
+	{
+		mapGen.plot(argleton.people, i, argleton.getBoxSize());
+		argleton.movePeople();
+	}
+	return 0;
+}
+
+void verbIt(char code, char* arg, char* name){
+	switch(code){
+		case MSG_invArg:
+			printf("%s: Invalid option: '%s''\nTry '%s --help' for more information.\n", name, arg, name);
+			break;
+		case MSG_noFile:
+			printf("%s: %s: No such file or directory\n", name, arg);
+			break;
+		case MSG_dupliArg:
+			printf("%s: Supplied the same argument twice: %s\n", name, arg);
+			break;
+		case MSG_help:
+			printf("###[ help text ]###]\n");
+			break;
+		case MSG_conflict:
+			printf("%s: Conflicting arguments\nTry '%s --help' for more information.\n", name, name);
+	}
+}
+
+bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char &flags){
 	int token = 1;
 	std::string argument;
 	while(argv[token] != nullptr){
@@ -94,7 +128,7 @@ int main(int argc, char **argv){
 				flags += 0b00000100;
 			}
 			if(argument == "--input" || argument == "-i"){
-				if((flags|0b00000010 == flags)||(flage|0b00000001 == flags)){
+				if((flags|0b00000010 == flags)||(flags|0b00000001 == flags)){
 					verbIt(MSG_dupliArg, argv[token], argv[0]);
 					return 1;
 				}
@@ -109,33 +143,5 @@ int main(int argc, char **argv){
 		}
 		token++;
 	}
-
-	city argleton(verbose, extraverbose);
-	populateCity(argleton);
-	Plotter mapGen;
-	for(int i = 0; i < 50; i++)
-	{
-		mapGen.plot(argleton.people, i, argleton.getBoxSize());
-		argleton.movePeople();
-	}
 	return 0;
-}
-
-void verbIt(char code, char* arg, char* name){
-	switch(code){
-		case MSG_invArg:
-			printf("%s: Invalid option: '%s''\nTry '%s --help' for more information.\n", name, arg, name);
-			break;
-		case MSG_noFile:
-			printf("%s: %s: No such file or directory\n", name, arg);
-			break;
-		case MSG_dupliArg:
-			printf("%s: Supplied the same argument twice: %s\n", name, arg);
-			break;
-		case MSG_help:
-			printf("###[ help text ]###]\n");
-			break;
-		case MSG_conflict:
-			printf("%s: Conflicting arguments\nTry '%s --help' for more information.\n", name, name);
-	}
 }
