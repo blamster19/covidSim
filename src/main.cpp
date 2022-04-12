@@ -11,7 +11,7 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 int main(int argc, char **argv){
 	bool verbose = 0;
 	bool extraverbose = 0;
-	char flags = 0b00000000;// C++14
+	char flags = 0b00000000;// C++14 introduces 0b
 	/*
 		flag bit layout (left to right):
 		[nIter] [dt] [nPeople] [recoveryTime] [output] [doFrames] [input][input]
@@ -83,7 +83,7 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 					return 1;
 				}
 				verbIt(MSG_help, argv[0], argv[0]);
-				return 0;
+				return 1;
 			}
 			if(argument == "--nIter"){
 				if(flags|0b10000000 == flags){
