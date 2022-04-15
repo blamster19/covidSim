@@ -4,7 +4,7 @@
 #include <cstdlib>
 #include <string>
 
-enum msgCodes{MSG_invArg, MSG_noFile, MSG_dupliArg, MSG_help, MSG_conflict};
+enum msgCodes{MSG_invArg, MSG_noFile, MSG_dupliArg, MSG_help, MSG_conflict, MSG_noArg};
 void verbIt(char code, char* arg, char* name);
 bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char &flags);
 
@@ -64,15 +64,13 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 			argument = std::string(argv[token]);
 			if(argument == "-v" || argument == "--verbose"){
 				if(verbose == 1){
-					verbIt(MSG_dupliArg, argv[token], argv[0]);
-					return  1;
+					goto dupliErr;
 				}
 				verbose = 1;
 			}
 			if(argument == "-V" || argument == "--Verbose"){
 				if(verbose == 1 || extraverbose == 1){
-					verbIt(MSG_dupliArg, argv[token], argv[0]);
-					return 1;
+					goto dupliErr;
 				}
 				verbose = 1;
 				extraverbose = 1;
@@ -90,47 +88,69 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 					verbIt(MSG_dupliArg, argv[token], argv[0]);
 					return 1;
 				}
+				token++;
+				if(argv[token][0] == '-'){
+					goto notAnOpt;
+				}
 				flags += 0b10000000;
 			}
 			if(argument == "--dt"){
 				if(flags|0b01000000 == flags){
-					verbIt(MSG_dupliArg, argv[token], argv[0]);
-					return 1;
+					goto dupliErr;
+				}
+				token++;
+				if(argv[token][0] == '-'){
+					goto notAnOpt;
 				}
 				flags += 0b01000000;
 			}
 			if(argument == "--nPeople"){
 				if(flags|0b00100000 == flags){
-					verbIt(MSG_dupliArg, argv[token], argv[0]);
-					return 1;
+					goto dupliErr;
+				}
+				token++;
+				if(argv[token][0] == '-'){
+					goto notAnOpt;
 				}
 				flags += 0b00100000;
 			}
 			if(argument == "--recoveryTime"){
 				if(flags|0b00010000 == flags){
-					verbIt(MSG_dupliArg, argv[token], argv[0]);
-					return 1;
+					goto dupliErr;
+				}
+				token++;
+				if(argv[token][0] == '-'){
+					goto notAnOpt;
 				}
 				flags += 0b00010000;
 			}
 			if(argument == "--output" || argument =="-o"){
 				if(flags|0b00001000 == flags){
-					verbIt(MSG_dupliArg, argv[token], argv[0]);
-					return 1;
+					goto dupliErr;
+				}
+				token++;
+				if(argv[token][0] == '-'){
+					goto notAnOpt;
 				}
 				flags += 0b00001000;
 			}
 			if(argument == "--doFrames"){
 				if(flags|0b00000100 == flags){
-					verbIt(MSG_dupliArg, argv[token], argv[0]);
-					return 1;
+					goto dupliErr;
+				}
+				token++;
+				if(argv[token][0] == '-'){
+					goto notAnOpt;
 				}
 				flags += 0b00000100;
 			}
 			if(argument == "--input" || argument == "-i"){
 				if((flags|0b00000010 == flags)||(flags|0b00000001 == flags)){
-					verbIt(MSG_dupliArg, argv[token], argv[0]);
-					return 1;
+					goto dupliErr;
+				}
+				token++;
+				if(argv[token][0] == '-'){
+					goto notAnOpt;
 				}
 				if(flags|0b00000011 == flags){// from file
 					flags += 0b00000011;
@@ -144,4 +164,10 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 		token++;
 	}
 	return 0;
+	dupliErr:// duplicate argument
+		verbIt(MSG_dupliArg, argv[token], argv[0]);
+		return 1;
+	notAnOpt:// no option value provided
+		verbIt(MSG_noArg, argv[token], argv[0]);
+		return 1;
 }
