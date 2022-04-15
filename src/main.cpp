@@ -6,7 +6,7 @@
 
 enum msgCodes{MSG_invArg, MSG_noFile, MSG_dupliArg, MSG_help, MSG_conflict, MSG_noArg};
 void verbIt(char code, char* arg, char* name);
-bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char &flags);
+bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char &flags, string (&parsedArgs)[7]);
 
 int main(int argc, char **argv){
 	bool verbose = 0;
@@ -20,7 +20,8 @@ int main(int argc, char **argv){
 			10 - random
 			11 - from file
 	*/
-	if(parseParams(argc, argv, verbose, extraverbose, flags)){
+	string parsedArgs[7];
+	if(parseParams(argc, argv, verbose, extraverbose, flags, parsedArgs)){
 		return 1;
 	}
 	city argleton(verbose, extraverbose);
@@ -53,7 +54,7 @@ void verbIt(char code, char* arg, char* name){
 	}
 }
 
-bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char &flags){
+bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char &flags, string (&parsedArgs)[7]){
 	int token = 1;
 	std::string argument;
 	while(argv[token] != nullptr){
@@ -85,14 +86,14 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 			}
 			if(argument == "--nIter"){
 				if(flags|0b10000000 == flags){
-					verbIt(MSG_dupliArg, argv[token], argv[0]);
-					return 1;
+					goto dupliErr;
 				}
 				token++;
 				if(argv[token][0] == '-'){
 					goto notAnOpt;
 				}
 				flags += 0b10000000;
+				parsedArgs[0] = argv[token];
 			}
 			if(argument == "--dt"){
 				if(flags|0b01000000 == flags){
@@ -103,6 +104,7 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 					goto notAnOpt;
 				}
 				flags += 0b01000000;
+				parsedArgs[1] = argv[token];
 			}
 			if(argument == "--nPeople"){
 				if(flags|0b00100000 == flags){
@@ -113,6 +115,7 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 					goto notAnOpt;
 				}
 				flags += 0b00100000;
+				parsedArgs[2] = argv[token];
 			}
 			if(argument == "--recoveryTime"){
 				if(flags|0b00010000 == flags){
@@ -123,6 +126,7 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 					goto notAnOpt;
 				}
 				flags += 0b00010000;
+				parsedArgs[3] = argv[token];
 			}
 			if(argument == "--output" || argument =="-o"){
 				if(flags|0b00001000 == flags){
@@ -133,6 +137,7 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 					goto notAnOpt;
 				}
 				flags += 0b00001000;
+				parsedArgs[4] = argv[token];
 			}
 			if(argument == "--doFrames"){
 				if(flags|0b00000100 == flags){
@@ -143,6 +148,7 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 					goto notAnOpt;
 				}
 				flags += 0b00000100;
+				parsedArgs[5] = argv[token];
 			}
 			if(argument == "--input" || argument == "-i"){
 				if((flags|0b00000010 == flags)||(flags|0b00000001 == flags)){
@@ -159,6 +165,7 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 				}else{// default
 					flags += 0b00000001;
 				}
+				parsedArgs[6] = argv[token];
 			}
 		}
 		token++;
