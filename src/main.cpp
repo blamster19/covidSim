@@ -89,6 +89,9 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 					goto dupliErr;
 				}
 				token++;
+				if(argv[token] == nullptr){
+					goto notAnOpt;
+				}
 				if(argv[token][0] == '-'){
 					goto notAnOpt;
 				}
@@ -100,6 +103,9 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 					goto dupliErr;
 				}
 				token++;
+				if(argv[token] == nullptr){
+					goto notAnOpt;
+				}
 				if(argv[token][0] == '-'){
 					goto notAnOpt;
 				}
@@ -111,6 +117,9 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 					goto dupliErr;
 				}
 				token++;
+				if(argv[token] == nullptr){
+					goto notAnOpt;
+				}
 				if(argv[token][0] == '-'){
 					goto notAnOpt;
 				}
@@ -122,6 +131,9 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 					goto dupliErr;
 				}
 				token++;
+				if(argv[token] == nullptr){
+					goto notAnOpt;
+				}
 				if(argv[token][0] == '-'){
 					goto notAnOpt;
 				}
@@ -133,6 +145,9 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 					goto dupliErr;
 				}
 				token++;
+				if(argv[token] == nullptr){
+					goto notAnOpt;
+				}
 				if(argv[token][0] == '-'){
 					goto notAnOpt;
 				}
@@ -144,6 +159,9 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 					goto dupliErr;
 				}
 				token++;
+				if(argv[token] == nullptr){
+					goto notAnOpt;
+				}
 				if(argv[token][0] == '-'){
 					goto notAnOpt;
 				}
@@ -155,6 +173,9 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 					goto dupliErr;
 				}
 				token++;
+				if(argv[token] == nullptr){
+					goto notAnOpt;
+				}
 				if(argv[token][0] == '-'){
 					goto notAnOpt;
 				}
