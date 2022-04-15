@@ -51,6 +51,9 @@ void verbIt(char code, char* arg, char* name){
 			break;
 		case MSG_conflict:
 			printf("%s: Conflicting arguments\nTry '%s --help' for more information.\n", name, name);
+		case MSG_noArg:
+			printf("%s: No value passed to an option that expects a value: '%s'\n", name, arg);
+
 	}
 }
 
@@ -196,6 +199,6 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 		verbIt(MSG_dupliArg, argv[token], argv[0]);
 		return 1;
 	notAnOpt:// no option value provided
-		verbIt(MSG_noArg, argv[token], argv[0]);
+		verbIt(MSG_noArg, argv[token-1], argv[0]);
 		return 1;
 }
