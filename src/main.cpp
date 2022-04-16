@@ -25,6 +25,16 @@ int main(int argc, char **argv){
 		return 1;
 	}
 	city argleton(verbose, extraverbose);
+	if(flags|0b10000000 == flags){// nIter
+		argleton.setAttr(city::attr_nIter, std::stod(parsedArgs[0]));
+	}
+	if(flags|0b01000000 == flags){// dt
+		argleton.setAttr(city::attr_dt, std::stod(parsedArgs[1]));
+	}
+	if(flags|0b00010000 == flags){// recoveryTime
+		argleton.setAttr(city::attr_recoveryTime, std::stod(parsedArgs[3]));
+	}
+
 	populateCity(argleton);
 	Plotter mapGen;
 	for(int i = 0; i < 50; i++)

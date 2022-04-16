@@ -111,3 +111,26 @@ double city::getTimeStep(){
 double city::getBoxSize(){
 	return this -> boxSize;
 }
+
+void city::setAttr(city::attributes attr, double val){
+	switch (attr){
+		case attr_nIter:
+			this -> nIter = (int) val;
+			break;
+		case attr_dt:
+			this -> dt = val;
+			break;
+		case attr_boxSize:
+			this -> boxSize = val;
+			break;
+		case attr_recoveryTime:
+			this -> recoveryTime = val;
+			break;
+		case attr_verbose:
+			this -> verbose = (val != 0.0);
+			break;
+		case attr_extraVerbose:
+			this -> extraVerbose = (val != 0.0);
+			break;
+	}
+}

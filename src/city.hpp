@@ -6,8 +6,10 @@
 #include <cstdint>
 #include "person.hpp"
 
+
 class city{
 public:
+	enum attributes{attr_nIter, attr_dt, attr_boxSize, attr_recoveryTime, attr_verbose, attr_extraVerbose};
 	city();
 	city(double dtarg, double boxSizearg, double recoveryTimearg, bool verbosearg, bool everbosearg);
 	city(bool verbosearg);
@@ -16,6 +18,7 @@ public:
 	void movePeople();
 	double getTimeStep();
 	double getBoxSize();
+	void setAttr(attributes attr, double val);
 	std::vector<person> people;
 private:
 	void verbIt(char code, void* arg = NULL);
