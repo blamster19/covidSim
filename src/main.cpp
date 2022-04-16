@@ -25,13 +25,13 @@ int main(int argc, char **argv){
 		return 1;
 	}
 	city argleton(verbose, extraverbose);
-	if(flags|0b10000000 == flags){// nIter
+	if((flags|0b10000000) == flags){// nIter
 		argleton.setAttr(city::attr_nIter, std::stod(parsedArgs[0]));
 	}
-	if(flags|0b01000000 == flags){// dt
+	if((flags|0b01000000) == flags){// dt
 		argleton.setAttr(city::attr_dt, std::stod(parsedArgs[1]));
 	}
-	if(flags|0b00010000 == flags){// recoveryTime
+	if((flags|0b00010000) == flags){// recoveryTime
 		argleton.setAttr(city::attr_recoveryTime, std::stod(parsedArgs[3]));
 	}
 
@@ -61,9 +61,10 @@ void verbIt(char code, char* arg, char* name){
 			break;
 		case MSG_conflict:
 			printf("%s: Conflicting arguments\nTry '%s --help' for more information.\n", name, name);
+			break;
 		case MSG_noArg:
 			printf("%s: No value passed to an option that expects a value: '%s'\n", name, arg);
-
+			break;
 	}
 }
 
@@ -98,7 +99,7 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 				return 1;
 			}
 			if(argument == "--nIter"){
-				if(flags|0b10000000 == flags){
+				if((flags|0b10000000) == flags){
 					goto dupliErr;
 				}
 				token++;
@@ -112,7 +113,7 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 				parsedArgs[0] = argv[token];
 			}
 			if(argument == "--dt"){
-				if(flags|0b01000000 == flags){
+				if((flags|0b01000000) == flags){
 					goto dupliErr;
 				}
 				token++;
@@ -126,7 +127,7 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 				parsedArgs[1] = argv[token];
 			}
 			if(argument == "--nPeople"){
-				if(flags|0b00100000 == flags){
+				if((flags|0b00100000) == flags){
 					goto dupliErr;
 				}
 				token++;
@@ -140,7 +141,7 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 				parsedArgs[2] = argv[token];
 			}
 			if(argument == "--recoveryTime"){
-				if(flags|0b00010000 == flags){
+				if((flags|0b00010000) == flags){
 					goto dupliErr;
 				}
 				token++;
@@ -154,7 +155,7 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 				parsedArgs[3] = argv[token];
 			}
 			if(argument == "--output" || argument =="-o"){
-				if(flags|0b00001000 == flags){
+				if((flags|0b00001000) == flags){
 					goto dupliErr;
 				}
 				token++;
@@ -168,7 +169,7 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 				parsedArgs[4] = argv[token];
 			}
 			if(argument == "--doFrames"){
-				if(flags|0b00000100 == flags){
+				if((flags|0b00000100) == flags){
 					goto dupliErr;
 				}
 				token++;
@@ -182,7 +183,7 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 				parsedArgs[5] = argv[token];
 			}
 			if(argument == "--input" || argument == "-i"){
-				if((flags|0b00000010 == flags)||(flags|0b00000001 == flags)){
+				if(((flags|0b00000010) == flags)||((flags|0b00000001) == flags)){
 					goto dupliErr;
 				}
 				token++;
@@ -192,9 +193,9 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 				if(argv[token][0] == '-'){
 					goto notAnOpt;
 				}
-				if(flags|0b00000011 == flags){// from file
+				if((flags|0b00000011) == flags){// from file
 					flags += 0b00000011;
-				}else if(flags|0b00000010 == flags){// random
+				}else if((flags|0b00000010) == flags){// random
 					flags += 0b00000010;
 				}else{// default
 					flags += 0b00000001;
