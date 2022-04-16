@@ -19,6 +19,7 @@ public:
 	double getTimeStep();
 	double getBoxSize();
 	void setAttr(attributes attr, double val);
+	void reverbAttributes();
 	std::vector<person> people;
 private:
 	void verbIt(char code, void* arg = NULL);

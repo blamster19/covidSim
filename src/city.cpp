@@ -134,3 +134,11 @@ void city::setAttr(city::attributes attr, double val){
 			break;
 	}
 }
+
+void city::reverbAttributes(){
+	printf("Initialized city: %p; attributes set:\n", this);
+	printf("value of 'nIter': %f\n", this -> nIter);
+	printf("value of 'dt': %f\n", this -> dt);
+	printf("value of 'boxSize': %f\n", this -> boxSize);
+	printf("value of 'recoveryTime': %f\n", this -> recoveryTime);
+}
