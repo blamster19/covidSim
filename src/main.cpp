@@ -73,7 +73,7 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 	std::string argument;
 	while(argv[token] != nullptr){
 		if(argv[token][0] != '-'){
-			verbIt(MSG_invArg, argv[token], argv[0]);
+			verbIt(MSG_invArg, argv[token-1], argv[0]);
 			return 1;
 		}else{
 			argument = std::string(argv[token]);
