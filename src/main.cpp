@@ -14,7 +14,7 @@ int main(int argc, char **argv){
 	char flags = 0b00000000;// C++14 introduces 0b
 	/*
 		flag bit layout (left to right):
-		[nIter] [dt] [nPeople] [recoveryTime] [output] [doFrames] [input][input]
+		[nIter] [dt] [boxSize] [recoveryTime] [output] [doFrames] [input][input]
 		-input bit layout:
 			01 - default
 			10 - random
@@ -30,6 +30,9 @@ int main(int argc, char **argv){
 	}
 	if((flags|0b01000000) == flags){// dt
 		argleton.setAttr(city::attr_dt, std::stod(parsedArgs[1]));
+	}
+	if((flags|0b00100000) == flags){// boxSize
+		argleton.setAttr(city::attr_boxSize, std::stod(parsedArgs[2]));
 	}
 	if((flags|0b00010000) == flags){// recoveryTime
 		argleton.setAttr(city::attr_recoveryTime, std::stod(parsedArgs[3]));
@@ -126,7 +129,7 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 				flags += 0b01000000;
 				parsedArgs[1] = argv[token];
 			}
-			if(argument == "--nPeople"){
+			if(argument == "--boxSize"){
 				if((flags|0b00100000) == flags){
 					goto dupliErr;
 				}
