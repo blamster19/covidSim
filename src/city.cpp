@@ -112,6 +112,10 @@ double city::getBoxSize(){
 	return this -> boxSize;
 }
 
+int city::getnIter(){
+	return this -> nIter;
+}
+
 void city::setAttr(city::attributes attr, double val){
 	switch (attr){
 		case attr_nIter:
@@ -136,8 +140,8 @@ void city::setAttr(city::attributes attr, double val){
 }
 
 void city::reverbAttributes(){
-	printf("Initialized city: %p; attributes set:\n", this);
-	printf("value of 'nIter': %f\n", this -> nIter);
+	printf("Initialized city: %p; attributes set:\n", (void*) this);
+	printf("value of 'nIter': %i\n", this -> nIter);
 	printf("value of 'dt': %f\n", this -> dt);
 	printf("value of 'boxSize': %f\n", this -> boxSize);
 	printf("value of 'recoveryTime': %f\n", this -> recoveryTime);

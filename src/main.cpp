@@ -40,8 +40,11 @@ int main(int argc, char **argv){
 
 	populateCity(argleton);
 	Plotter mapGen;
-	for(int i = 0; i < 50; i++)
+	for(int i = 0; i < argleton.getnIter(); i++)
 	{
+		if(verbose){
+			printf("Iteration %i:\n", i);
+		}
 		mapGen.plot(argleton.people, i, argleton.getBoxSize());
 		argleton.movePeople();
 	}

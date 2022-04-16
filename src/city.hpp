@@ -18,6 +18,7 @@ public:
 	void movePeople();
 	double getTimeStep();
 	double getBoxSize();
+	int getnIter();
 	void setAttr(attributes attr, double val);
 	void reverbAttributes();
 	std::vector<person> people;
