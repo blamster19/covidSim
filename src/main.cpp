@@ -51,7 +51,7 @@ int main(int argc, char **argv){
 void verbIt(char code, char* arg, char* name){
 	switch(code){
 		case MSG_invArg:
-			printf("%s: Invalid option: '%s''\nTry '%s --help' for more information.\n", name, arg, name);
+			printf("%s: Invalid option: '%s'\nTry '%s --help' for more information.\n", name, arg, name);
 			break;
 		case MSG_noFile:
 			printf("%s: %s: No such file or directory\n", name, arg);
@@ -85,14 +85,14 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 					goto dupliErr;
 				}
 				verbose = 1;
-			}
+			}else
 			if(argument == "-V" || argument == "--Verbose"){
 				if(verbose == 1 || extraverbose == 1){
 					goto dupliErr;
 				}
 				verbose = 1;
 				extraverbose = 1;
-			}
+			}else
 			if(argument == "-h" || argument == "--help"){
 				if(argc > 2){
 					verbIt(MSG_conflict, argv[0], argv[0]);
@@ -100,7 +100,7 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 				}
 				verbIt(MSG_help, argv[0], argv[0]);
 				return 1;
-			}
+			}else
 			if(argument == "--nIter"){
 				if((flags|0b10000000) == flags){
 					goto dupliErr;
@@ -114,7 +114,7 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 				}
 				flags += 0b10000000;
 				parsedArgs[0] = argv[token];
-			}
+			}else
 			if(argument == "--dt"){
 				if((flags|0b01000000) == flags){
 					goto dupliErr;
@@ -128,7 +128,7 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 				}
 				flags += 0b01000000;
 				parsedArgs[1] = argv[token];
-			}
+			}else
 			if(argument == "--boxSize"){
 				if((flags|0b00100000) == flags){
 					goto dupliErr;
@@ -142,7 +142,7 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 				}
 				flags += 0b00100000;
 				parsedArgs[2] = argv[token];
-			}
+			}else
 			if(argument == "--recoveryTime"){
 				if((flags|0b00010000) == flags){
 					goto dupliErr;
@@ -156,7 +156,7 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 				}
 				flags += 0b00010000;
 				parsedArgs[3] = argv[token];
-			}
+			}else
 			if(argument == "--output" || argument =="-o"){
 				if((flags|0b00001000) == flags){
 					goto dupliErr;
@@ -170,7 +170,7 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 				}
 				flags += 0b00001000;
 				parsedArgs[4] = argv[token];
-			}
+			}else
 			if(argument == "--doFrames"){
 				if((flags|0b00000100) == flags){
 					goto dupliErr;
@@ -184,7 +184,7 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 				}
 				flags += 0b00000100;
 				parsedArgs[5] = argv[token];
-			}
+			}else
 			if(argument == "--input" || argument == "-i"){
 				if(((flags|0b00000010) == flags)||((flags|0b00000001) == flags)){
 					goto dupliErr;
@@ -204,6 +204,9 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 					flags += 0b00000001;
 				}
 				parsedArgs[6] = argv[token];
+			}else{
+				verbIt(MSG_invArg, argv[token], argv[0]);
+				return 1;
 			}
 		}
 		token++;
