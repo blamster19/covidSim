@@ -3,6 +3,7 @@
 #include "generator.hpp"
 #include <cstdlib>
 #include <string>
+#include <ctime>
 
 enum msgCodes{MSG_invArg, MSG_noFile, MSG_dupliArg, MSG_help, MSG_conflict, MSG_noArg};
 void verbIt(char code, char* arg, char* name);
@@ -37,8 +38,17 @@ int main(int argc, char **argv){
 	if((flags|0b00010000) == flags){// recoveryTime
 		argleton.setAttr(city::attr_recoveryTime, std::stod(parsedArgs[3]));
 	}
-
-	populateCity(argleton);
+	if((flags|0b00000001) == flags){// default populate
+		populateCity(argleton);
+	}else
+	if((flags|0b00000010) == flags){// random populate
+		srand(time(NULL));
+		int seed = std::rand();
+		populateCity(argleton, seed);
+	}else
+	if((flags|0b00000011) == flags){// file populate
+		populateCity(argleton, "input.config");
+	}
 	Plotter mapGen;
 	for(int i = 0; i < argleton.getnIter(); i++)
 	{
@@ -199,12 +209,16 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 				if(argv[token][0] == '-'){
 					goto notAnOpt;
 				}
-				if((flags|0b00000011) == flags){// from file
+				argument = argv[token];
+				if(argument == "file"){// from file
 					flags += 0b00000011;
-				}else if((flags|0b00000010) == flags){// random
+				}else if(argument == "random"){// random
 					flags += 0b00000010;
-				}else{// default
+				}else if(argument == "test"){// default
 					flags += 0b00000001;
+				}else{
+					verbIt(MSG_invArg, argv[token], argv[0]);
+					return 1;
 				}
 				parsedArgs[6] = argv[token];
 			}else{
