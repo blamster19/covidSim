@@ -184,16 +184,12 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 				argument = argv[token];
 				if(argument == "true" || argument == "TRUE" || argument == "1"){
 					flags += 0b00001000;
-					parsedArgs[4] = "1";
 				}else
 				if(argument == "false" || argument == "FALSE" || argument == "0"){
-					flags += 0b00001000;
-					parsedArgs[4] = "0";
+					// do nothing
 				}else{
 					goto invalidArg;
 				}
-				flags += 0b00001000;
-				parsedArgs[4] = argv[token];
 			}else
 			if(argument == "--doFrames"){
 				if((flags|0b00000100) == flags){
