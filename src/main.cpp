@@ -61,6 +61,7 @@ int main(int argc, char **argv){
 	if((flags|0b00000100) == flags){
 		printf("Merging frames into GIF...\n");
 		system("python3 deps/mergeFrames.py");
+		system("cd plots; rm -f frame*.png");
 	}
 	return 0;
 }
