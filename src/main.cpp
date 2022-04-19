@@ -181,6 +181,17 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 				if(argv[token][0] == '-'){
 					goto notAnOpt;
 				}
+				argument = argv[token];
+				if(argument == "true" || argument == "TRUE" || argument == "1"){
+					flags += 0b00001000;
+					parsedArgs[4] = "1";
+				}else
+				if(argument == "false" || argument == "FALSE" || argument == "0"){
+					flags += 0b00001000;
+					parsedArgs[4] = "0";
+				}else{
+					goto invalidArg;
+				}
 				flags += 0b00001000;
 				parsedArgs[4] = argv[token];
 			}else
@@ -217,8 +228,7 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 				}else if(argument == "test"){// default
 					flags += 0b00000001;
 				}else{
-					verbIt(MSG_invArg, argv[token], argv[0]);
-					return 1;
+					goto invalidArg;
 				}
 				parsedArgs[6] = argv[token];
 			}else{
@@ -234,5 +244,8 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 		return 1;
 	notAnOpt:// no option value provided
 		verbIt(MSG_noArg, argv[token-1], argv[0]);
+		return 1;
+	invalidArg:// wrong argument value
+		verbIt(MSG_invArg, argv[token], argv[0]);
 		return 1;
 }
