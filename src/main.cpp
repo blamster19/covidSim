@@ -206,8 +206,14 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 				if(argv[token][0] == '-'){
 					goto notAnOpt;
 				}
-				flags += 0b00000100;
-				parsedArgs[5] = argv[token];
+				if(argument == "true" || argument == "TRUE" || argument == "1"){
+					flags += 0b00000100;
+				}else
+				if(argument == "false" || argument == "FALSE" || argument == "0"){
+					//do nothing
+				}else{
+					goto invalidArg;
+				}
 			}else
 			if(argument == "--input" || argument == "-i"){
 				if(((flags|0b00000010) == flags)||((flags|0b00000001) == flags)){
