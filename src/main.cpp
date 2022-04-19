@@ -58,6 +58,10 @@ int main(int argc, char **argv){
 		mapGen.plot(argleton.people, i, argleton.getBoxSize());
 		argleton.movePeople();
 	}
+	if((flags|0b00000100) == flags){
+		printf("Merging frames into GIF...\n");
+		system("python3 deps/mergeFrames.py");
+	}
 	return 0;
 }
 
