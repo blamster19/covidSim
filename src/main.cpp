@@ -202,6 +202,7 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 				if(argv[token][0] == '-'){
 					goto notAnOpt;
 				}
+				argument = argv[token];
 				if(argument == "true" || argument == "TRUE" || argument == "1"){
 					flags += 0b00000100;
 				}else
