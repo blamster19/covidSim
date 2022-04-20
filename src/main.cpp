@@ -39,14 +39,17 @@ int main(int argc, char **argv){
 		argleton.setAttr(city::attr_recoveryTime, std::stod(parsedArgs[3]));
 	}
 	if((flags|0b00000011) == flags){// file populate
-		char stat = populateCity(argleton, "input_config");
-		if(stat == 1){
+		switch(populateCity(argleton, "input_config")){
+		case 1:
 			verbIt(MSG_noFile, argv[0], "input_config");
 			return 1;
-		}else
-		if(stat == 2){
+			break;
+		case 2:
 			verbIt(MSG_invFile, argv[0], "input_config");
 			return 1;
+			break;
+		default:
+			break;
 		}
 	}else
 	if((flags|0b00000001) == flags){// default populate
