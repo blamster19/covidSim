@@ -4,9 +4,9 @@
 #include <string>
 
 void populateCity(city &cityPop){
-	cityPop.createPerson(0.1, 0.2, 0.1, 0.2, 0.02, 1);
-	cityPop.createPerson(0.1, 0.1, 0.5, 0.3, 0.05, 1);
-	cityPop.createPerson(0.2, 0.1, 0.3, 0.6, 0.03, 0);
+	cityPop.createPerson(0.1, 0.2, 0.1, 0.2, 0.002, 1);
+	cityPop.createPerson(0.1, 0.1, 0.5, 0.3, 0.005, 1);
+	cityPop.createPerson(0.2, 0.1, 0.3, 0.6, 0.003, 0);
 }
 
 void populateCity(city &cityPop, int seed){
@@ -33,7 +33,7 @@ void populateCity(city &cityPop, int seed){
 	}
 }
 
-int populateCity(city &cityPop, char* path){
+int populateCity(city &cityPop, const char* path){
 	std::fstream file;
 	file.open(path, std::ios::in);
 	if(!file.good()){

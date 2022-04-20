@@ -5,7 +5,8 @@ enum msgCodes{MSG_crtPrsn, MSG_trnsltAll, MSG_trnsltPrsn, MSG_doneTrnslt};
 
 //constructors
 city::city()
-: 	nIter( 100 )
+: 	people( )
+, 	nIter( 100 )
 , 	dt( 0.02 )
 , 	boxSize( 0.25 )
 , 	recoveryTime( 0.5 )
@@ -15,7 +16,9 @@ city::city()
 }
 
 city::city(double dtarg, double boxSizearg, double recoveryTimearg, bool verbosearg, bool everbosearg)
-:	dt( dtarg )
+: 	people( )
+, 	nIter( 100 )
+, 	dt( dtarg )
 ,	boxSize( boxSizearg )
 ,	recoveryTime( recoveryTimearg )
 , 	verbose( verbosearg )
@@ -24,7 +27,8 @@ city::city(double dtarg, double boxSizearg, double recoveryTimearg, bool verbose
 }
 
 city::city(bool verbosearg)
-: 	nIter( 100 )
+: 	people( )
+, 	nIter( 100 )
 , 	dt( 0.02 )
 , 	boxSize( 0.25 )
 , 	recoveryTime( 0.5 )
@@ -34,7 +38,8 @@ city::city(bool verbosearg)
 }
 
 city::city(bool verbosearg, bool everbosearg)
-: 	nIter( 100 )
+: 	people( )
+, 	nIter( 100 )
 , 	dt( 0.02 )
 , 	boxSize( 0.25 )
 , 	recoveryTime( 0.5 )
@@ -49,20 +54,20 @@ void city::verbIt(char code, void* arg){
 		//this function writes addresses of what does what
 		switch(code){
 		case MSG_crtPrsn:
-			printf("in city %p: created person %p\n", this, arg);
+			printf("in city %p: created person %p\n", (void*)this, arg);
 			break;
 		case MSG_trnsltAll:
-			printf("in city %p: start translating people\n", this);
+			printf("in city %p: start translating people\n", (void*)this);
 			break;
 		case MSG_trnsltPrsn:
 			if(this -> extraVerbose == 1)//extra layer of scrutiny
-				printf("in city %p: 	translated person %p\n", this, arg);
+				printf("in city %p: 	translated person %p\n", (void*)this, arg);
 			break;
 		case MSG_doneTrnslt:
-			printf("in city %p: translated all people\n", this);
+			printf("in city %p: translated all people\n", (void*)this);
 			break;
 		default:
-			printf("in city %p: unknown error code\n", this);
+			printf("in city %p: unknown error code\n", (void*)this);
 			break;
 		}
 	}
@@ -76,8 +81,8 @@ void city::createPerson(double x, double y, double vx, double vy, double radius,
 
 void city::infectPeople(){
 	//people.size() choose 2
-	for(int i = 0; i < (this -> people.size()); i++){
-		for(int j = i+1; j < (this -> people.size()); j++){
+	for(long unsigned int i = 0; i < (this -> people.size()); i++){
+		for(long unsigned int j = i+1; j < (this -> people.size()); j++){
 			//if one of them is infected
 			if(people[i].getStatus() == 0 || people[j].getStatus() == 0){
 				//compare squares of distances

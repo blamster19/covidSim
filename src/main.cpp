@@ -86,6 +86,8 @@ void verbIt(char code, char* arg, char* name){
 		case MSG_noArg:
 			printf("%s: No value passed to an option that expects a value: '%s'\n", name, arg);
 			break;
+		default:
+			break;
 	}
 }
 

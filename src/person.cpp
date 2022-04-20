@@ -19,6 +19,7 @@ person::person(double xarg, double yarg, double vxarg, double vyarg, double radi
 ,	vy( vyarg )
 ,	radius( radiusarg )
 ,	status( statusarg )
+, 	timeR( 0 )
 {
 }
 

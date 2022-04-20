@@ -5,6 +5,6 @@
 
 void populateCity(city &cityPop);
 void populateCity(city &cityPop, int seed);
-int populateCity(city &cityPop, char* path);
+int populateCity(city &cityPop, const char* path);
 
 #endif
