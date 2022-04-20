@@ -5,8 +5,8 @@
 #include <string>
 #include <ctime>
 
-enum msgCodes{MSG_invArg, MSG_noFile, MSG_dupliArg, MSG_help, MSG_conflict, MSG_noArg};
-void verbIt(char code, char* arg, char* name);
+enum msgCodes{MSG_invArg, MSG_noFile, MSG_dupliArg, MSG_help, MSG_conflict, MSG_noArg, MSG_invFile};
+void verbIt(char code, const char* arg, const char* name);
 bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char &flags, string (&parsedArgs)[7]);
 
 int main(int argc, char **argv){
@@ -47,7 +47,13 @@ int main(int argc, char **argv){
 		populateCity(argleton, seed);
 	}else
 	if((flags|0b00000011) == flags){// file populate
-		populateCity(argleton, "input.config");
+		char stat = populateCity(argleton, "input_config");
+		if(stat == 1){
+			verbIt(MSG_noFile, argv[0], "input_config");
+		}else
+		if(stat == 2){
+			verbIt(MSG_invFile, argv[0], "input_config");
+		}
 	}
 	Plotter mapGen;
 	for(int i = 0; i < argleton.getnIter(); i++)
@@ -64,12 +70,12 @@ int main(int argc, char **argv){
 		system("cd plots; rm -f frame*.png");
 	}
 	if((flags|0b00001000) == flags){
-		printf("%i\n",saveFile(argleton, "output_config"));
+		saveFile(argleton, "output_config");
 	}
 	return 0;
 }
 
-void verbIt(char code, char* arg, char* name){
+void verbIt(char code, const char* arg, const char* name){
 	switch(code){
 		case MSG_invArg:
 			printf("%s: Invalid option: '%s'\nTry '%s --help' for more information.\n", name, arg, name);
@@ -88,6 +94,9 @@ void verbIt(char code, char* arg, char* name){
 			break;
 		case MSG_noArg:
 			printf("%s: No value passed to an option that expects a value: '%s'\n", name, arg);
+			break;
+		case MSG_invFile:
+			printf("%s: %s: Unknown value\n", name, arg);
 			break;
 		default:
 			break;
