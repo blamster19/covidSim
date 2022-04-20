@@ -38,6 +38,17 @@ int main(int argc, char **argv){
 	if((flags|0b00010000) == flags){// recoveryTime
 		argleton.setAttr(city::attr_recoveryTime, std::stod(parsedArgs[3]));
 	}
+	if((flags|0b00000011) == flags){// file populate
+		char stat = populateCity(argleton, "input_config");
+		if(stat == 1){
+			verbIt(MSG_noFile, argv[0], "input_config");
+			return 1;
+		}else
+		if(stat == 2){
+			verbIt(MSG_invFile, argv[0], "input_config");
+			return 1;
+		}
+	}else
 	if((flags|0b00000001) == flags){// default populate
 		populateCity(argleton);
 	}else
@@ -45,15 +56,6 @@ int main(int argc, char **argv){
 		srand(time(NULL));
 		int seed = std::rand();
 		populateCity(argleton, seed);
-	}else
-	if((flags|0b00000011) == flags){// file populate
-		char stat = populateCity(argleton, "input_config");
-		if(stat == 1){
-			verbIt(MSG_noFile, argv[0], "input_config");
-		}else
-		if(stat == 2){
-			verbIt(MSG_invFile, argv[0], "input_config");
-		}
 	}
 	Plotter mapGen;
 	for(int i = 0; i < argleton.getnIter(); i++)
