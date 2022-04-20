@@ -53,6 +53,14 @@ double person::getY(){
 	return this -> y;
 }
 
+double person::getVX(){
+	return this -> vx;
+}
+
+double person::getVY(){
+	return this -> vy;
+}
+
 double person::getRadius(){
 	return this -> radius;
 }

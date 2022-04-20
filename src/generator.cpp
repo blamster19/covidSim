@@ -68,3 +68,32 @@ int populateCity(city &cityPop, const char* path){
 	file.close();
 	return 0;
 }
+
+int saveFile(city &cityPop, const char* path){
+	std::ofstream file;
+	file.open(path, std::ios::trunc);
+	if(!file.good()){
+		return 1;
+	}
+	for(auto &i : cityPop.people){
+		file<<i.getX()<<" "<<i.getY()<<" "<<i.getVX()<<" "<<i.getVY()<<" "<<i.getRadius()<<" ";
+		switch(i.getStatus()){
+			case 0:
+				file<<"red";
+				break;
+			case 1:
+				file<<"green";
+				break;
+			case 2:
+				file<<"blue";
+				break;
+			default:
+				return 2;
+				break;
+
+		}
+		file<<std::endl;
+	}
+	file.close();
+	return 0;
+}

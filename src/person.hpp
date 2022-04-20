@@ -11,6 +11,8 @@ public:
 	double getRadius();
 	const char* getColor();
 	char getStatus();
+	double getVX();
+	double getVY();
 	void infect();
 private:
 	double x;

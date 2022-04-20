@@ -63,6 +63,9 @@ int main(int argc, char **argv){
 		system("python3 deps/mergeFrames.py");
 		system("cd plots; rm -f frame*.png");
 	}
+	if((flags|0b00001000) == flags){
+		printf("%i\n",saveFile(argleton, "output_config"));
+	}
 	return 0;
 }
 
