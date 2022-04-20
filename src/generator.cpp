@@ -37,6 +37,7 @@ int populateCity(city &cityPop, const char* path){
 	std::fstream file;
 	file.open(path, std::ios::in);
 	if(!file.good()){
+		file.close();
 		return 1;
 	}
 	double x;
@@ -46,10 +47,10 @@ int populateCity(city &cityPop, const char* path){
 	double r;
 	char status;
 	std::string statusStr;
-	while(file){
-		file >> x >> y >> vx >> vy >> r >> statusStr;
+	while(file >> x >> y >> vx >> vy >> r >> statusStr){
 		if(file.fail()){
-			return 1;
+			file.close();
+			return 2;
 		}
 		if(statusStr == "red"){
 			status = 0;
