@@ -105,9 +105,6 @@ void verbIt(char code, const char* arg, const char* name){
 		case MSG_dupliArg:
 			printf("%s: Supplied the same argument twice: %s\n", name, arg);
 			break;
-		case MSG_help:
-			printf("###[ help text ]###]\n");
-			break;
 		case MSG_conflict:
 			printf("%s: Conflicting arguments\nTry '%s --help' for more information.\n", name, name);
 			break;
@@ -122,6 +119,32 @@ void verbIt(char code, const char* arg, const char* name){
 			break;
 		case MSG_noInput:
 			printf("%s: No input method provided.\nTry '%s --help' for more information.\n", name, name);
+			break;
+		case MSG_help:
+			printf("\
+Usage: %s [OPTION]... [VALUE]...\n\
+Simple pandemic simulator project for an assignment.\n\n\
+Options:\n\
+required:\n\
+   -i,     --input         <random/test/file>     source of population to simulate:\n\
+                                                  <random> - generate 50 random people\n\
+                                                  <test>   - generate 3 hardcoded people\n\
+                                                  <file>   - generate people from file \"input_config\"\n\n\
+optional:\n\
+simulation parameters:\n\
+           --nIter         <value>                set iterarion count\n\
+           --dt            <value>                set time step\n\
+           --boxSize       <value>                set simulation domain boundary\n\
+           --recoveryTime  <value>                set time it takes for infected to recover\n\
+data output:\n\
+   -o,     --output        <true/false>           save peoples' attributes to file \"output_config\"\n\
+           --doFrames 	   <true/false>           create GIF from frames\n\
+startup:\n\
+   -v,     --verbose                              explain what is being done\n\
+   -V,     --Verbose                              explain what is being done in more detail\n\
+   -h,     --help                                 display this help\n\n\
+You can browse the source code at <https://github.com/blamster19/covidSim>\n", name);
+			break;
 		default:
 			break;
 	}
