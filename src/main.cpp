@@ -70,12 +70,26 @@ int main(int argc, char **argv){
 		argleton.movePeople();
 	}
 	if((flags|0b00000100) == flags){
-		printf("Merging frames into GIF...\n");
-		system("python3 deps/mergeFrames.py");
+		if(verbose){
+			printf("%s: Merging frames into GIF...\n", argv[0]);
+		}
+		if(extraverbose){
+			printf("%s: 	Executing mergeFrames script...\n", argv[0]);
+		}
+		system("python3 deps/mergeFrames.py\n");
+		if(extraverbose){
+			printf("%s: 	Wiping frame files.\n", argv[0]);
+		}
 		system("cd plots; rm -f frame*.png");
 	}
 	if((flags|0b00001000) == flags){
+		if(verbose){
+			printf("Creating output file...\n");
+		}
 		saveFile(argleton, "output_config");
+	}
+	if(verbose){
+		printf("%s: Done.\n", argv[0]);
 	}
 	return 0;
 }
