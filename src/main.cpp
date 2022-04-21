@@ -5,7 +5,7 @@
 #include <string>
 #include <ctime>
 
-enum msgCodes{MSG_invArg, MSG_noFile, MSG_dupliArg, MSG_help, MSG_conflict, MSG_noArg, MSG_invFile};
+enum msgCodes{MSG_invArg, MSG_noFile, MSG_dupliArg, MSG_help, MSG_conflict, MSG_noArg, MSG_invFile, MSG_noArgs};
 void verbIt(char code, const char* arg, const char* name);
 bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char &flags, string (&parsedArgs)[7]);
 
@@ -117,6 +117,8 @@ void verbIt(char code, const char* arg, const char* name){
 		case MSG_invFile:
 			printf("%s: %s: Unknown value\n", name, arg);
 			break;
+		case MSG_noArgs:
+			printf("%s: No arguments were provided.\nTry '%s --help' for more information.\n", name, name);
 		default:
 			break;
 	}
@@ -125,6 +127,10 @@ void verbIt(char code, const char* arg, const char* name){
 bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char &flags, string (&parsedArgs)[7]){
 	int token = 1;
 	std::string argument;
+	if(argc == 1){
+		verbIt(MSG_noArgs, argv[0], argv[0]);
+		return 1;
+	}
 	while(argv[token] != nullptr){
 		if(argv[token][0] != '-'){
 			verbIt(MSG_invArg, argv[token-1], argv[0]);
