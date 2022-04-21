@@ -1,4 +1,4 @@
-CPPFLAGS=-pedantic -Wall -Wextra -Weffc++ -Wunreachable-code -I/usr/include/python3.9 -lpython3.9
+CPPFLAGS=-pedantic -Wall -Wextra -Werror -Weffc++ -Wunreachable-code -std=c++17 -I/usr/include/python3.9 -lpython3.9
 DEBUG=-g
 TARGET=covidSim
 OBJS=obj/main.o obj/city.o obj/person.o obj/generator.o obj/Plotter.o
@@ -21,4 +21,4 @@ obj/generator.o: src/generator.cpp src/generator.hpp
 	$(CXX) $(DEBUG) -c src/generator.cpp -o $@ $(CPPFLAGS)
 
 obj/Plotter.o: deps/Plotter.cpp deps/Plotter.h
-	$(CXX) $(DEBUG) -c deps/Plotter.cpp -o $@
+	$(CXX) $(DEBUG) -c deps/Plotter.cpp -o $@ $(CPPFLAGS)
