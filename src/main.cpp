@@ -5,7 +5,7 @@
 #include <string>
 #include <ctime>
 
-enum msgCodes{MSG_invArg, MSG_noFile, MSG_dupliArg, MSG_help, MSG_conflict, MSG_noArg, MSG_invFile, MSG_noArgs};
+enum msgCodes{MSG_invArg, MSG_noFile, MSG_dupliArg, MSG_help, MSG_conflict, MSG_noArg, MSG_invFile, MSG_noArgs, MSG_noInput};
 void verbIt(char code, const char* arg, const char* name);
 bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char &flags, string (&parsedArgs)[7]);
 
@@ -119,6 +119,9 @@ void verbIt(char code, const char* arg, const char* name){
 			break;
 		case MSG_noArgs:
 			printf("%s: No arguments were provided.\nTry '%s --help' for more information.\n", name, name);
+			break;
+		case MSG_noInput:
+			printf("%s: No input method provided.\nTry '%s --help' for more information.\n", name, name);
 		default:
 			break;
 	}
@@ -284,6 +287,10 @@ bool parseParams(int argc, char **argv, bool &verbose, bool &extraverbose, char 
 			}
 		}
 		token++;
+	}
+	if(!(((flags|0b00000010) == flags)||((flags|0b00000001) == flags)||(flags|0b00000011) == flags)){
+		verbIt(MSG_noInput, argv[0], argv[0]);
+		return 1;
 	}
 	return 0;
 	dupliErr:// duplicate argument
