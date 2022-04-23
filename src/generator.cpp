@@ -46,26 +46,56 @@ int populateCity(city &cityPop, const char* path){
 	double vy;
 	double r;
 	char status;
-	std::string statusStr;
-	while(file >> x >> y >> vx >> vy >> r >> statusStr){
+	std::string input;
+	char counter = 0;
+	while(1){
+		file >> input;
+		if(file.eof()){
+			break;
+		}
 		if(file.fail()){
 			file.close();
 			return 2;
 		}
-		if(statusStr == "red"){
-			status = 0;
-		}else
-		if(statusStr == "green"){
-			status = 1;
-		}else
-		if(statusStr == "blue"){
-			status = 2;
-		}else{
-			return 2;
+		switch(counter%6){
+			case 0:
+				if((counter != 0)){
+					cityPop.createPerson(x, y, vx, vy, r, status);
+				}
+				x = std::stod(input);
+				break;
+			case 1:
+				y = std::stod(input);
+				break;
+			case 2:
+				vx = std::stod(input);
+				break;
+			case 3:
+				vy = std::stod(input);
+				break;
+			case 4:
+				r = std::stod(input);
+				break;
+			case 5:
+				if(input == "red"){
+					status = 0;
+				}else
+				if(input == "green"){
+					status = 1;
+				}else
+				if(input == "blue"){
+					status = 2;
+				}else{
+					return 2;
+				}
+				break;
+			default:
+				break;
 		}
-		cityPop.createPerson(x, y, vx, vy, r, status);
 		file.clear();
+		counter++;
 	}
+			cityPop.createPerson(x, y, vx, vy, r, status);
 	file.close();
 	return 0;
 }
