@@ -25,16 +25,16 @@ person::person(double xarg, double yarg, double vxarg, double vyarg, double radi
 void person::translate(double dt, double bound, double recTime){
 	x += dt*vx;
 	y += dt*vy;
-	if(x > bound && vx > 0){
+	if(x+radius > bound && vx > 0){
 		vx = -vx;
 	}
-	if(x < 0 && vx < 0){
+	if(x-radius < 0 && vx < 0){
 		vx = -vx;
 	}
-	if(y > bound && vy > 0){
+	if(y+radius > bound && vy > 0){
 		vy = -vy;
 	}
-	if(y < 0 && vy < 0){
+	if(y-radius < 0 && vy < 0){
 		vy = -vy;
 	}
 	if(status == 0){
