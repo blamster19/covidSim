@@ -60,13 +60,13 @@ int main(int argc, char **argv){
 		int seed = std::rand();
 		populateCity(argleton, seed);
 	}
-	Plotter mapGen;
+	Plotter mapGen;// Plotter.h
 	for(int i = 0; i < argleton.getnIter(); i++)
 	{
 		if(verbose){
 			printf("Iteration %i:\n", i);
 		}
-		mapGen.plot(argleton.people, i, argleton.getBoxSize());
+		mapGen.plot(argleton.people, i, argleton.getBoxSize());// Plotter.h
 		argleton.movePeople();
 	}
 	if((flags|0b00000100) == flags){
@@ -76,7 +76,7 @@ int main(int argc, char **argv){
 		if(extraverbose){
 			printf("%s: 	Executing mergeFrames script...\n", argv[0]);
 		}
-		system("python3 deps/mergeFrames.py\n");
+		system("python3 deps/mergeFrames.py\n");// mergeFrames.py
 		if(extraverbose){
 			printf("%s: 	Wiping frame files.\n", argv[0]);
 		}
