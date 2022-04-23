@@ -1,9 +1,7 @@
 #include "city.hpp"
 
-//message codes
 enum msgCodes{MSG_crtPrsn, MSG_trnsltAll, MSG_trnsltPrsn, MSG_doneTrnslt};
 
-//constructors
 city::city()
 : 	people( )
 , 	nIter( 100 )
@@ -48,10 +46,8 @@ city::city(bool verbosearg, bool everbosearg)
 {
 }
 
-//verbosity function that prints what is being done
 void city::verbIt(char code, void* arg){
 	if(this -> verbose == 1){
-		//this function writes addresses of what does what
 		switch(code){
 		case MSG_crtPrsn:
 			printf("in city %p: created person %p\n", (void*)this, arg);
@@ -74,8 +70,8 @@ void city::verbIt(char code, void* arg){
 }
 
 void city::createPerson(double x, double y, double vx, double vy, double radius, char status){
-	person *newPerson = new person(x, y, vx, vy, radius, status);//allocate mem and init object
-	this -> people.push_back(*newPerson);//add to list of objects
+	person *newPerson = new person(x, y, vx, vy, radius, status);
+	this -> people.push_back(*newPerson);
 	verbIt(MSG_crtPrsn, newPerson);
 }
 
@@ -83,9 +79,8 @@ void city::infectPeople(){
 	//people.size() choose 2
 	for(long unsigned int i = 0; i < (this -> people.size()); i++){
 		for(long unsigned int j = i+1; j < (this -> people.size()); j++){
-			//if one of them is infected
 			if(people[i].getStatus() == 0 || people[j].getStatus() == 0){
-				//compare squares of distances
+				//compare squares of distances instead of performing costly sqrt
 				double x = people[i].getX() - people[j].getX();
 				double y = people[i].getY() - people[j].getY();
 				double r = people[i].getRadius() + people[j].getRadius();
@@ -100,7 +95,6 @@ void city::infectPeople(){
 
 void city::movePeople(){
 	verbIt(MSG_trnsltAll);
-	//iterate list of objects
 	for(auto &i : people){
 		i.translate(dt, boxSize, recoveryTime);
 		verbIt(MSG_trnsltPrsn, &i);

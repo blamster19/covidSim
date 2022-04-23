@@ -1,6 +1,5 @@
 #include "person.hpp"
 
-//constructors
 person::person()
 : 	x( 0 )
 ,	y( 0 )
@@ -24,25 +23,26 @@ person::person(double xarg, double yarg, double vxarg, double vyarg, double radi
 }
 
 void person::translate(double dt, double bound, double recTime){
-	//move
 	x += dt*vx;
 	y += dt*vy;
-	//deflect upon collision
-	if(x > bound && vx > 0)
+	if(x > bound && vx > 0){
 		vx = -vx;
-	if(x < 0 && vx < 0)
+	}
+	if(x < 0 && vx < 0){
 		vx = -vx;
-	if(y > bound && vy > 0)
+	}
+	if(y > bound && vy > 0){
 		vy = -vy;
-	if(y < 0 && vy < 0)
+	}
+	if(y < 0 && vy < 0){
 		vy = -vy;
-	//time flow
-	if(status == 0)
+	}
+	if(status == 0){
 		this -> timeR += dt;
-	//if enough time elapsed, heal
-	if(this -> timeR >= recTime)
+	}
+	if(this -> timeR >= recTime){
 		this -> status = 2;
-	//printf("%x: time: %f\n", this, this -> timeR);
+	}
 }
 
 double person::getX(){
@@ -84,7 +84,7 @@ char person::getStatus(){
 }
 
 void person::infect(){
-	if(this -> status == 1)
-	//	this -> timeR = 0;
-	this -> status = 0;
+	if(this -> status == 1){
+		this -> status = 0;
+	}
 }

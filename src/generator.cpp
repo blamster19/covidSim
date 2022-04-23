@@ -95,7 +95,7 @@ int populateCity(city &cityPop, const char* path){
 		file.clear();
 		counter++;
 	}
-			cityPop.createPerson(x, y, vx, vy, r, status);
+	cityPop.createPerson(x, y, vx, vy, r, status);
 	file.close();
 	return 0;
 }
