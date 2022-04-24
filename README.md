@@ -24,7 +24,7 @@ To compile covidSim, `cd` into the project directory and type:
 ```
 $ make
 ```
-The Makefile is written with external dependencies in mind. If you wish to use some other plotter, you can delete `-I/usr/include/python3.9 -lpython3.9` from `CPPFLAGS` variable, remove `obj/Plotter.o` in `OBJS` variable and remove `obj/Plotter.o` compilation part (last two lines).
+The Makefile is written with external dependencies in mind. If you wish to use some other plotter, you can delete `PYTHON` variable, remove `obj/Plotter.o` in `OBJS` variable, remove `$(PYTHON)` from target compile line and remove `obj/Plotter.o` compilation part (last two lines).
 The binary file will be created in `bin/covidSim`.
 
 ## Usage
