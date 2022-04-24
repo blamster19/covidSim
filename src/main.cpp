@@ -41,11 +41,11 @@ int main(int argc, char **argv){
 	if((flags|0b00000011) == flags){// file populate
 		switch(populateCity(argleton, "input_config")){
 		case 1:
-			verbIt(MSG_noFile, argv[0], "input_config");
+			verbIt(MSG_noFile, "input_config", argv[0]);
 			return 1;
 			break;
 		case 2:
-			verbIt(MSG_invFile, argv[0], "input_config");
+			verbIt(MSG_invFile, "input_config", argv[0]);
 			return 1;
 			break;
 		default:
@@ -132,7 +132,7 @@ required:\n\
                                                   <file>   - generate people from file \"input_config\"\n\n\
 optional:\n\
 simulation parameters:\n\
-           --nIter         <value>                set iterarion count\n\
+           --nIter         <value>                set iteration count\n\
            --dt            <value>                set time step\n\
            --boxSize       <value>                set simulation domain boundary\n\
            --recoveryTime  <value>                set time it takes for infected to recover\n\
